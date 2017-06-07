@@ -1,0 +1,40 @@
+name: github.com/opspec-pkgs/azure.webapp.create
+description: creates an azure webapp (if it doesn't already exist)
+inputs:
+  subscriptionId:
+    string:
+      constraints: { minLength: 1 }
+      description: id of azure subscription
+  azureUsername:
+    string:
+      constraints: { format: email }
+      description: email address of azure account
+  azurePassword:
+    string:
+      constraints: { minLength: 1 }
+      description: password of azure account
+      isSecret: true
+  name:
+    string:
+      constraints: { minLength: 3, maxLength: 24, pattern: '^[a-z0-9]+$' }
+      description: name of the webapp
+  plan: 
+    string:
+      constraints: { minLength: 1 }
+      description: Name or resource id of the app service plan. Use 'https://github.com/opspec-pkgs/azure.appservice.plan.create' to create one.
+  resourceGroup:
+    string:
+      constraints: { minLength: 1 }
+      description: resource group of provisioned webapp
+run:
+  container:
+    image: { ref: 'azuresdk/azure-cli-python:0.2.10' }
+    cmd: [ /cmd.sh ]
+    files: { /cmd.sh }
+    envVars:
+      subscriptionId:
+      azureUsername:
+      azurePassword:
+      name:
+      plan:
+      resourceGroup:
