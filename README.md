@@ -25,9 +25,19 @@ run:
     pkg: { ref: github.com/opspec-pkgs/azure.webapp.create#VERSION }
     inputs:
       subscriptionId:
-      azureUsername:
-      azurePassword:
+      loginId:
+      loginSecret:
       name:
-      plan:
       resourceGroup:
+      appServicePlan:
+      # begin optional args
+      deploymentContainerImageName:
+      deploymentSourceBranch:
+      deploymentSourceUrl:
+      isLocalGitEnabled:
+      loginTenantId:
+      loginType:
+      runtime:
+      startupFile:
+      # end optional args
 ```

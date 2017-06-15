@@ -5,27 +5,67 @@ inputs:
     string:
       constraints: { minLength: 1 }
       description: id of azure subscription
-  azureUsername:
-    string:
-      constraints: { format: email }
-      description: email address of azure account
-  azurePassword:
+  loginId:
     string:
       constraints: { minLength: 1 }
-      description: password of azure account
+      description: id of user, service principal, or app to login with
+  loginSecret:
+    string:
+      constraints: { minLength: 1 }
+      description: secret of user, service principal, or app to login with
       isSecret: true
   name:
     string:
       constraints: { minLength: 3, maxLength: 24, pattern: '^[a-z0-9]+$' }
       description: name of the webapp
-  plan: 
-    string:
-      constraints: { minLength: 1 }
-      description: Name or resource id of the app service plan. Use 'https://github.com/opspec-pkgs/azure.appservice.plan.create' to create one.
   resourceGroup:
     string:
       constraints: { minLength: 1 }
-      description: resource group of provisioned webapp
+      description: resource group for the provisioned webapp
+  appServicePlan:
+    string:
+      constraints: { minLength: 1 }
+      description: app service plan (name or id) for the provisioned webapp
+  deploymentContainerImageName:
+    string:
+      constraints: { format: docker-image-ref }
+      description: docker hub image ref of deployments for provisioned webapp
+      default: "node"
+  deploymentSourceBranch:
+    string:
+      constraints: { minLength: 1 }
+      description: git repo branch deployments will pull from for provisioned webapp
+      default: master
+  deploymentSourceUrl:
+    string:
+      constraints: { minLength: 1 }
+      description: git repo url deployments will pull from for provisioned webapp
+      default: " "
+  isLocalGitEnabled:
+    string:
+      constraints: { enum: ['true', 'false']}
+      description: if local git is enabled for provisioned webapp
+      default: 'false'
+  loginTenantId:
+    string:
+      constraints: { minLength: 1 }
+      description: tenant id of user, service principal, or app to login with
+      default: " "
+  loginType:
+    string:
+      constraints: { enum: [user, sp]}
+      description: type of login; 'user' (default) or 'sp' for service principal
+      default: user
+  runtime:
+    string:
+      constraints: { minLength: 1 }
+      description: runtime in format FRAMEWORK|VERSION for provisioned webapp
+      default: " "
+  startupFile:
+    string:
+      constraints: { minLength: 1 }
+      description: startup file for provisioned webapp
+      default: " "
 run:
   container:
     image: { ref: 'azuresdk/azure-cli-python:0.2.10' }
@@ -33,8 +73,16 @@ run:
     files: { /cmd.sh }
     envVars:
       subscriptionId:
-      azureUsername:
-      azurePassword:
+      loginId:
+      loginSecret:
       name:
-      plan:
       resourceGroup:
+      appServicePlan:
+      deploymentContainerImageName:
+      deploymentSourceBranch:
+      deploymentSourceUrl:
+      isLocalGitEnabled:
+      loginTenantId:
+      loginType:
+      runtime:
+      startupFile:
