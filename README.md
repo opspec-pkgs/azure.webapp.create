@@ -20,26 +20,25 @@ opctl run github.com/opspec-pkgs/azure.webapp.create#VERSION
 ## compose
 
 ```yaml
-run:
-  op:
-    pkg: { ref: github.com/opspec-pkgs/azure.webapp.create#VERSION }
-    inputs:
-      subscriptionId:
-      loginId:
-      loginSecret:
-      name:
-      resourceGroup:
-      appServicePlan:
-      # begin optional args
-      deploymentContainerImageName:
-      deploymentSourceBranch:
-      deploymentSourceUrl:
-      isLocalGitEnabled:
-      loginTenantId:
-      loginType:
-      runtime:
-      startupFile:
-      # end optional args
+op:
+  pkg: { ref: github.com/opspec-pkgs/azure.webapp.create#VERSION }
+  inputs:
+    subscriptionId:
+    loginId:
+    loginSecret:
+    name:
+    resourceGroup:
+    appServicePlan:
+    # begin optional args
+    deploymentContainerImageName:
+    deploymentSourceBranch:
+    deploymentSourceUrl:
+    isLocalGitEnabled:
+    loginTenantId:
+    loginType:
+    runtime:
+    startupFile:
+    # end optional args
 ```
 
 # Support
